@@ -57,14 +57,17 @@ def add():
     add_label.grid(row=0, column=0, columnspan=4)
 
     #campos del formulario
-    add_name_label.grid(row=1, column=0, padx=5, pady=5)
+    add_name_label.grid(row=1, column=0, padx=5, pady=5, sticky=E)
     add_name_entry.grid(row=1, column=1, padx=5, pady=5, sticky=W)
 
     add_price_label.grid(row=2, column=0, padx=5, pady=5, sticky=E)
     add_price_entry.grid(row=2, column=1, padx=5, pady=5, sticky=W)
-
-    add_description_label.grid(row=3, column=0, padx=5, pady=5, sticky=E)
-    add_description_entry.grid(row=3, column=1, padx=5, pady=5, sticky=W)
+    
+    add_quantity_label.grid(row=3, column=0, padx=5, pady=5, sticky=E)
+    add_quantity_entry.grid(row=3, column=1, padx=5, pady=5, sticky=W)
+    
+    add_description_label.grid(row=4, column=0, padx=5, pady=5, sticky=E)
+    add_description_entry.grid(row=4, column=1, padx=5, pady=5, sticky=W)
     add_description_entry.config(
         width=30,
         height=5,
@@ -73,10 +76,7 @@ def add():
         pady=15
     )
 
-    add_quantity_label.grid(row=4, column=0, padx=5, pady=5, sticky=E)
-    add_quantity_entry.grid(row=4, column=1, padx=5, pady=5, sticky=W)
-
-    add_separator.grid(row=5)
+    add_separator.grid(row=4)
     boton.grid(row=6, column=1, sticky=NW)
     boton.config(
         padx=15,
@@ -90,7 +90,6 @@ def add():
     info_label.grid_remove()
     products_box.grid_remove()
     info_table.grid_remove()
-    
     return True
 
 # Menu de informacion
@@ -121,6 +120,7 @@ def info():
     add_name_label.grid_remove()
     add_price_label.grid_remove()
     add_description_label.grid_remove()
+    add_quantity_label.grid_remove()
     products_box.grid_remove()
     
     return True
@@ -130,8 +130,9 @@ def add_product():
     products.append([
         name_data.get(),
         price_data.get(),
-        add_description_entry.get("1.0", "end-1c"),
-        quantity_data.get()  # Utilizamos la variable quantity_data
+        quantity_data.get(),
+        add_description_entry.get("1.0", "end-1c")
+         
     ])
 
     # Borrar los datos del formulario
@@ -140,7 +141,7 @@ def add_product():
     add_description_entry.delete("1.0", END)
     quantity_data.set("")  # Borrar el valor de quantity_data
 
-    home()
+    add()
 
 # Variables importantes
 name_data=StringVar()
