@@ -30,7 +30,7 @@ def home():
     
     # Listar los productos 
     for product in products:
-        products_box.insert('', 0, text=product[0], values=(product[1], product[3]))
+        products_box.insert('', 0, text=product[0], values=(product[1], product[2]))
     
     # Ocultar pantalla
     add_label.grid_remove()
@@ -42,6 +42,7 @@ def home():
     add_separator.grid_remove()
     boton.grid_remove()
     info_table.grid_remove()
+    total_label.grid_remove()
     return True
 
 # Menu de Agregar
@@ -90,11 +91,11 @@ def add():
     info_label.grid_remove()
     products_box.grid_remove()
     info_table.grid_remove()
+    total_label.grid_remove()
     return True
 
 # Menu de informacion
 def info():
-    
     info_label.config(
         fg="white", 
         bg="blue",
@@ -111,7 +112,11 @@ def info():
     
     # Agregar información de productos a la tabla
     for product in products:
-        info_table.insert('', 'end', text=product[0], values=(product[3], product[1], product[2]))
+        info_table.insert('', 'end', text=product[0], values=(product[2], product[1], product[3]))
+        
+    # Calcular y mostrar total de ventas del día
+    calculate_total_sales()
+    total_label.grid(row=2, column=0)  
     
     # Ocultar pantalla
     add_label.grid_remove()
@@ -125,6 +130,16 @@ def info():
     
     return True
 
+def calculate_total_sales():
+    total = 0
+    for product in products:
+        price = float(product[1])  # Convertir el precio a float
+        quantity = int(product[2])  # Convertir la cantidad a int
+        total += price * quantity   # Sumar el precio * cantidad al total
+
+    total_label.config(text=f"Total ventas del día: ${total:.2f}")
+    total_label.grid(row=2, column=0)
+    
 # Añadir datos a una lista
 def add_product():
     products.append([
@@ -147,6 +162,7 @@ def add_product():
 name_data=StringVar()
 price_data=StringVar()
 quantity_data=StringVar()
+total_label = Label(ventana, text="", font=("Arial", 12))
 products=[]
 
 #Definir campos de pantalla
