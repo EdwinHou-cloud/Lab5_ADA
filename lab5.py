@@ -11,19 +11,19 @@ ventana.title ("Sistema de gestion de ventas")
 ventana.resizable(0,0)
 
 # Menu de inicio
-def home():
+def sales():
 
     # Montar pantalla
-    home_label.config(
+    sales_label.config(
         fg="white", 
         bg="black",
         font=("Arial",30),
-        padx=210,
+        padx=187,
         pady=20,
     )
-    home_label.grid(row=0, column=0)
+    sales_label.grid(row=0, column=0, columnspan=4)
 
-    products_box.grid(row=2)
+    products_box.grid(row=1, column=0)
     
     # Borrar la lista de productos anterior y evitar que se dupliquen
     products_box.delete(*products_box.get_children())  
@@ -34,13 +34,17 @@ def home():
     
     # Ocultar pantalla
     add_label.grid_remove()
-    info_label.grid_remove()
     add_name_label.grid_remove()
+    add_name_entry.grid_remove()
     add_price_label.grid_remove()
+    add_price_entry.grid_remove()
     add_description_label.grid_remove()
+    add_description_entry.grid_remove()
     add_quantity_label.grid_remove()
+    add_quantity_entry.grid_remove()
     add_separator.grid_remove()
     boton.grid_remove()
+    info_label.grid_remove()
     info_table.grid_remove()
     total_label.grid_remove()
     return True
@@ -58,17 +62,17 @@ def add():
     add_label.grid(row=0, column=0, columnspan=4)
 
     #campos del formulario
-    add_name_label.grid(row=1, column=0, padx=5, pady=5, sticky=E)
-    add_name_entry.grid(row=1, column=1, padx=5, pady=5, sticky=W)
+    add_name_label.grid(row=2, column=0, padx=5, pady=5, sticky=E)
+    add_name_entry.grid(row=2, column=1, padx=5, pady=5, sticky=W)
 
-    add_price_label.grid(row=2, column=0, padx=5, pady=5, sticky=E)
-    add_price_entry.grid(row=2, column=1, padx=5, pady=5, sticky=W)
+    add_price_label.grid(row=3, column=0, padx=5, pady=5, sticky=E)
+    add_price_entry.grid(row=3, column=1, padx=5, pady=5, sticky=W)
     
-    add_quantity_label.grid(row=3, column=0, padx=5, pady=5, sticky=E)
-    add_quantity_entry.grid(row=3, column=1, padx=5, pady=5, sticky=W)
+    add_quantity_label.grid(row=4, column=0, padx=5, pady=5, sticky=E)
+    add_quantity_entry.grid(row=4, column=1, padx=5, pady=5, sticky=W)
     
-    add_description_label.grid(row=4, column=0, padx=5, pady=5, sticky=E)
-    add_description_entry.grid(row=4, column=1, padx=5, pady=5, sticky=W)
+    add_description_label.grid(row=5, column=0, padx=5, pady=5, sticky=E)
+    add_description_entry.grid(row=5, column=1, padx=5, pady=5, sticky=W)
     add_description_entry.config(
         width=30,
         height=5,
@@ -77,7 +81,7 @@ def add():
         pady=15
     )
 
-    add_separator.grid(row=4)
+    add_separator.grid(row=6)
     boton.grid(row=6, column=1, sticky=NW)
     boton.config(
         padx=15,
@@ -87,7 +91,7 @@ def add():
     )
 
     # ocultar pantalla
-    home_label.grid_remove()
+    sales_label.grid_remove()
     info_label.grid_remove()
     products_box.grid_remove()
     info_table.grid_remove()
@@ -100,13 +104,13 @@ def info():
         fg="white", 
         bg="blue",
         font=("Arial",30),
-        padx=160,
+        padx=146,
         pady=20
     )
     info_label.grid(row=0, column=0)
     
     # Mostrar tabla
-    info_table.grid(row=1, column=0, columnspan=4)
+    info_table.grid(row=1, column=0)
     
     info_table.delete(*info_table.get_children()) 
     
@@ -120,14 +124,18 @@ def info():
     
     # Ocultar pantalla
     add_label.grid_remove()
-    home_label.grid_remove()
     add_name_label.grid_remove()
-    add_name_label.grid_remove()
+    add_name_entry.grid_remove()
     add_price_label.grid_remove()
+    add_price_entry.grid_remove()
     add_description_label.grid_remove()
+    add_description_entry.grid_remove()
     add_quantity_label.grid_remove()
+    add_quantity_entry.grid_remove()
+    add_separator.grid_remove()
+    boton.grid_remove()
+    sales_label.grid_remove()
     products_box.grid_remove()
-    
     return True
 
 def calculate_total_sales():
@@ -139,6 +147,7 @@ def calculate_total_sales():
 
     total_label.config(text=f"Total ventas del día: ${total:.2f}")
     total_label.grid(row=2, column=0)
+    
     
 # Añadir datos a una lista
 def add_product():
@@ -167,14 +176,14 @@ products=[]
 
 #Definir campos de pantalla
 info_label = Label(ventana, text="Información")
-home_label = Label(ventana, text="Ventas")
+sales_label = Label(ventana, text="Ventas")
 
-# Datos de pantalla de Inicio
+# Datos de pantalla de Ventas
 Label(ventana).grid(row=1)
 products_box=ttk.Treeview(height=12,columns=('Precio', 'Cantidad'))
-products_box.column("#0", anchor=W, width=200)  # Ajustar ancho de la columna de texto
-products_box.column("#1", anchor=W, width=150)  # Ajustar ancho de la columna de precio
-products_box.column("#2", anchor=W, width=85)  # Ajustar ancho de la columna de cantidad
+products_box.column("#0", anchor=W, width=225)  # Ajustar ancho de la columna de texto
+products_box.column("#1", anchor=W, width=175)  # Ajustar ancho de la columna de precio
+products_box.column("#2", anchor=W, width=98)  # Ajustar ancho de la columna de cantidad
 products_box.heading("#0", text='Producto', anchor=W)
 products_box.heading("#1", text='Precio', anchor=W)
 products_box.heading("#2", text='Cantidad', anchor=W)
@@ -199,11 +208,11 @@ boton=Button(ventana, text="GUARDAR", command=add_product)
 
 # Crear tabla para mostrar información de productos
 Label(ventana).grid(row=1)
-info_table = ttk.Treeview(height=12, columns=('Producto', 'Cantidad', 'Precio', 'Descripcion'))
-info_table.column("#0", anchor=W, width=100)  # Ajustar ancho de la columna de cantidad
+info_table = ttk.Treeview(height=12, columns=('Cantidad', 'Precio', 'Descripcion'))
+info_table.column("#0", anchor=W, width=110)  # Ajustar ancho de la columna de cantidad
 info_table.column("#1", anchor=W, width=65)  # Ajustar ancho de la columna de producto
-info_table.column("#2", anchor=W, width=85)  # Ajustar ancho de la columna de precio
-info_table.column("#3", anchor=W, width=200)  # Ajustar ancho de la columna de descripción
+info_table.column("#2", anchor=W, width=95)  # Ajustar ancho de la columna de precio
+info_table.column("#3", anchor=W, width=228)  # Ajustar ancho de la columna de descripción
 info_table.heading("#0", text='Producto', anchor=W)
 info_table.heading("#1", text='Cantidad', anchor=W)
 info_table.heading("#2", text='Precio', anchor=W)
@@ -215,7 +224,7 @@ add()
 # Creación de Menu
 menu_superior=Menu(ventana)
 menu_superior.add_command(label="Añadir", command=add)
-menu_superior.add_command(label="Ventas", command=home)
+menu_superior.add_command(label="Ventas", command=sales)
 menu_superior.add_command(label="Información", command=info)
 menu_superior.add_command(label="Salir", command=ventana.quit)
 ventana.config (menu=menu_superior)
